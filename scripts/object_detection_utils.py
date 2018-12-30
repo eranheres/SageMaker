@@ -6,7 +6,7 @@ from StringIO import StringIO
 s3_resource = boto3.resource('s3')
 s3_client   = boto3.client('s3')
 
-def open_s3_file(bucket, key):
+def read_s3_file(bucket, key):
     obj = s3_resource.Object(bucket, key)
     return obj.get()['Body'].read().decode('utf-8') 
 
@@ -38,7 +38,7 @@ def convert_augmented_format_to_json_format(augmented, attribute_name):
 def convert_augmented_samples_to_files_samples(attribute_name, bucket, augmented_manifest, output_prefix):
     images_folder = output_prefix + '/images'
     annotations_folder = output_prefix + '/annotations'
-    augmented = [json.loads(x) for x in open_s3_file(bucket, augmented_manifest).split('\n') if len(x)!=0]
+    augmented = [json.loads(x) for x in read_s3_file(bucket, augmented_manifest).split('\n') if len(x)!=0]
     for aug in augmented:
         image_link = urlparse(aug['source-ref'])
         copy_s3_file(image_link.netloc, image_link.path, images_folder)
