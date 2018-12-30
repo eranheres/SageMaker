@@ -1,6 +1,8 @@
+import argparse
 from sagemaker.predictor import RealTimePredictor
 from sagemaker.content_types import CONTENT_TYPE_CSV
 from sagemaker.session import Session
+
 
 def file_data(file_name):
     with open(file_name, 'rb') as image:
@@ -20,6 +22,14 @@ def predict(predictor, file_name):
     ret = predictor.predict(data)
     print (ret)
     
+def main():
+    parser = argparse.ArgumentParser(description="inference an image")
+    parser.add_argument('file_name', metavar='filename', type=str, help='the filename to inferece')
+    parser.add_argument('end_point', metavar='endpoint', type=str, help='the model endpoint name')
+    parser.add_argument('-d', dest='data_type', type=str, default='image/png', help='the MIME data type')
+    args = parser.parse_args()
+    p = predictor(args.data_type, args.end_point)
+    predict(p, args.file_name)
     
-p = predictor('image/png', 'xbutton-endpoint-1')
-predict(p, '2.11-18.34.6.png')
+if __name__ == "__main__":
+    main() 
