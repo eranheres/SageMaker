@@ -38,6 +38,7 @@ scripts/inferences.py - Inference the image agains an endpoint. Can be used stan
 scripts/plot_result.py - A utility that helps to plot the results. 
 
 # Usage 
+
 To inference an image from command line, use the following syntax:
 ```
 inferences.py [-h] [-d DATA_TYPE] filename endpoint
@@ -46,4 +47,12 @@ Example for that can look like that:
 ```
 python inferences.py ../images/4.0-13.6.10.png myendpoint
 ```
+or for S3 file:
+```
+python inferences.py s3://mybucket/path-to-file/file.ext myendpoint
+```
+
+
+The output results format is described [here](https://docs.aws.amazon.com/sagemaker/latest/dg/object-detection-in-formats.html).
+For ease of use you can use the following script to visualize results:
 
