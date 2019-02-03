@@ -47,7 +47,9 @@ Example for that can look like that:
 ```
 python inferences.py ../images/4.0-13.6.10.png myendpoint
 ```
-or for S3 file:
+
+# Visualize results
+Visualize results can be from a local file or S3. The following example is for S3 file:
 ```
 python inferences.py s3://mybucket/path-to-file/file.ext myendpoint
 ```
